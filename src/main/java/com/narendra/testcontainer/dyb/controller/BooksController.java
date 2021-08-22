@@ -2,6 +2,7 @@ package com.narendra.testcontainer.dyb.controller;
 
 
 import com.narendra.testcontainer.dyb.model.Books;
+import com.narendra.testcontainer.dyb.services.BookJDBCService;
 import com.narendra.testcontainer.dyb.services.BooksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,10 +18,11 @@ import java.util.List;
 public class BooksController {
     //autowire the BooksService class
 
-
-
     @Autowired
     BooksService booksService;
+
+    @Autowired
+    BookJDBCService bookJDBCService;
 
 
     //creating a get mapping that retrieves all the books detail from the database
@@ -60,4 +62,13 @@ public class BooksController {
         booksService.saveOrUpdate(books);
         return books;
     }
+
+
+
+    @GetMapping("/jbook/{bookid}")
+    private Books getJDBCBooks(@PathVariable("bookid") int bookid) {
+
+        return bookJDBCService.findByCustomerId(bookid);
+    }
+
 }

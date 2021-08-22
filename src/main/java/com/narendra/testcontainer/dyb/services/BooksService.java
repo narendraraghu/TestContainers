@@ -19,14 +19,14 @@ public class BooksService {
     //getting all books record by using the method findaAll() of CrudRepository
     public List<Books> getAllBooks() {
         List<Books> books = new ArrayList<>();
-        booksRepository.findAll().forEach(books1 -> books.add(books1));
+        booksRepository.findAll().forEach(books::add);
         return books;
     }
 
     //getting a specific record by using the method findById() of CrudRepository
     @Cacheable(cacheNames = "books", key="#id")
     public Books getBooksById(int id) {
-        System.out.println("fetching book from db");
+        System.out.println("fetching book from db for "+id);
         return booksRepository.findById(id).get();
     }
 
