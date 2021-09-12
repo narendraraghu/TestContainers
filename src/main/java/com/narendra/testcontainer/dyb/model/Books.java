@@ -1,15 +1,14 @@
 package com.narendra.testcontainer.dyb.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 
 //mark class as an Entity
@@ -19,7 +18,6 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Books
 {
     //Defining book id as primary key
@@ -32,4 +30,15 @@ public class Books
     private String author;
     @Column
     private int price;
- }
+
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDateTime cre_ts;
+
+    public Books(int bookId, String bookName, String author, int price) {
+        this.bookId = bookId;
+        this.bookName = bookName;
+        this.author = author;
+        this.price = price;
+    }
+}
